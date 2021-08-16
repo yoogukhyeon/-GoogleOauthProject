@@ -1,0 +1,41 @@
+<h6 style="font-size: 14px; padding: 5px 0">게시판</h6>
+<h3>저의 블로그에 놀러 오신걸 환영합니다 {{name}}님</h3>
+<p style="padding: 10px 0; font-size: 18px; font-weight: bold">여기는 프론트개발 블로그 입니다! <br /> 게시판에 하고싶은 말을 남겨주세요</p>
+{{#if stories}}
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Edit &amp; Delete</th>
+            </tr>
+        </thead>
+         <tbody>
+             {{#each stories}}
+                <tr>
+                    <td><a href="/stories/{{_id}}"></a>{{title}}</a></td>
+                    <td>{{formatDate createdAt 'MMMM Do YYYY, H:mm:ss a'}}</td>
+                    <td><span class="dash-status">{{status}}</span></td>
+                    <td>
+                        <a href="/plan/edit/{{_id}}" class="btn btn-float">
+                            <i class="fas fa-edit"></i>
+                        </a>
+
+                        <form action="/plan/{{_id}}" method="POST" id="delete-form">
+                            <input type="hidden" name="_method" value="DELETE"> 
+                            <button class="btn red">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+             {{/each}}
+         </tbody>
+    </table>
+
+
+{{else}}
+    <p>올라온 최신 게시글이 없습니다.!</p>
+
+{{/if}}
